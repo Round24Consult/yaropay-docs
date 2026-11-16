@@ -24,6 +24,7 @@ YaroPay is configured with environment variables. In Docker, set them on the `ap
 | `GATEWAY_TIMEOUT_MS` | `15000` | How long YaroPay waits for Paystack or Flutterwave. |
 | `LOG_LEVEL` | `log` | `error`, `warn`, `log`, `debug` or `verbose`. |
 | `PORT`, `HOST` | `4000`, `0.0.0.0` | Where the API listens. |
+| `YAROPAY_DISABLE_EE` | off | Enterprise builds only: run as Community, ignoring the paid features. Useful when debugging. |
 
 ## Dashboard
 

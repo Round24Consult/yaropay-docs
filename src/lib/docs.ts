@@ -45,6 +45,7 @@ export const DOC_GROUPS: { title: string; pages: DocPage[] }[] = [
       { slug: "self-hosting", file: "self-hosting.md", title: "Self-hosting with Docker" },
       { slug: "configuration", file: "configuration.md", title: "Configuration" },
       { slug: "team-and-roles", file: "team-and-roles.md", title: "Team, roles and notifications" },
+      { slug: "enterprise-licence", file: "enterprise-licence.md", title: "Enterprise licence" },
       { slug: "security", file: "security.md", title: "Security model" },
     ],
   },
