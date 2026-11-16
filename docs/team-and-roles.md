@@ -39,6 +39,30 @@ Everything (gateway accounts, products, payments, webhooks, team, settings and t
 a workspace: one company. A Community install has one workspace. Cloud and Enterprise can have several;
 people who belong to more than one switch between them from the company menu at the top of the sidebar.
 
+## Two-step sign-in
+
+Anyone can turn on two-step sign-in from **Settings → Profile & security**: scan the QR code with an
+authenticator app (Google Authenticator, 1Password, Authy and others) and enter the code it shows.
+After that, signing in needs your password and a 6-digit code from the app.
+
+- You get ten **recovery codes** when you turn it on. Each one signs you in once if you lose your phone.
+  Save them somewhere safe; you can make new ones (which retires the old ones) from the same page.
+- Turning it on signs out your other sessions. Turning it off needs your password and a code.
+- After five wrong codes the sign-in ends and you start again with your password; an account accepts
+  at most 20 wrong codes an hour. Each time five wrong codes are entered, you get an email, because
+  whoever did it knew your password.
+- Each code works once. Codes from just before or after the current 30 seconds are accepted, for phones
+  whose clock is slightly off.
+
+Lost both your phone and your recovery codes? Whoever runs the server can turn two-step sign-in off for
+your account, which also signs you out everywhere and is recorded in the audit log:
+
+```bash
+docker compose exec api node dist/cli/accounts.js reset-two-step you@company.com
+```
+
+It's free in every edition. Requiring it for a whole team is a planned paid feature.
+
 ## Notifications
 
 | Event | Who gets it | Default |
