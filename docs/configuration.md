@@ -7,7 +7,8 @@ YaroPay is configured with environment variables. In Docker, set them on the `ap
 | Variable | Default | What it does |
 |---|---|---|
 | `DATABASE_URL` | empty | Postgres connection string. Empty uses the embedded database (PGlite) in `PGLITE_DIR`, for development. |
-| `YAROPAY_ENCRYPTION_KEY` | development key | 32 random bytes, base64 (`openssl rand -base64 32`). Encrypts gateway keys, signing secrets and the alerts URL. **Required in production.** |
+| `YAROPAY_ENCRYPTION_KEY` | development key | 32 random bytes, base64 (`openssl rand -base64 32`). Encrypts gateway keys, signing secrets, the alerts URL and authenticator secrets. **Required in production.** |
+| `YAROPAY_ENCRYPTION_KEY_PREVIOUS` | none | Only while rotating the key: the old key (comma-separated if several). Still read, never written. See [Self-hosting](/docs/self-hosting#rotating-the-encryption-key). |
 | `SETUP_TOKEN` | none | When set, creating the first (owner) account needs it, from `/setup?token=…` or the setup form. **Set it on any install reachable from the internet.** |
 | `DASHBOARD_URL` | `http://localhost:3000` | Where people open the dashboard: CORS, the origin check on form posts, links in emails. |
 | `YAROPAY_BASE_URL` | `http://localhost:4000` | The public URL suggested on first run. It feeds every callback and webhook URL; change it later in Settings → General. |
@@ -18,7 +19,8 @@ YaroPay is configured with environment variables. In Docker, set them on the `ap
 | `WEBHOOK_ALLOW_PRIVATE` | on in development, off in production | Allows product webhook URLs on private networks. Leave it off on internet-facing installs. |
 | `WEBHOOK_TIMEOUT_MS` | `10000` | How long YaroPay waits for a product's webhook endpoint. |
 | `WORKERS` | on | Runs the delivery and email workers. Several API instances can share them safely. |
-| `RATE_LIMIT` | on | Per-address limits on sign-in, password reset and invite endpoints. |
+| `RATE_LIMIT` | on | Per-address limits on sign-in, password reset and invite endpoints, and the per-company product API limit below. |
+| `V1_RATE_LIMIT_PER_MINUTE` | `1200` | Product API requests one company can make each minute, across all its products and keys. Over it, requests get `429` with `Retry-After`. |
 | `SESSION_DAYS` | `30` | How long a sign-in lasts without activity. |
 | `PAYSTACK_API_URL`, `FLUTTERWAVE_API_URL` | the official APIs | Override for a proxy or sandbox. |
 | `GATEWAY_TIMEOUT_MS` | `15000` | How long YaroPay waits for Paystack or Flutterwave. |

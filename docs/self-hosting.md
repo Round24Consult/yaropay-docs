@@ -71,6 +71,7 @@ services:
     environment:
       DATABASE_URL: postgres://yaropay:${POSTGRES_PASSWORD}@postgres:5432/yaropay
       YAROPAY_ENCRYPTION_KEY: ${YAROPAY_ENCRYPTION_KEY}
+      YAROPAY_ENCRYPTION_KEY_PREVIOUS: ${YAROPAY_ENCRYPTION_KEY_PREVIOUS:-}
       SETUP_TOKEN: ${SETUP_TOKEN}
       DASHBOARD_URL: https://${APP_DOMAIN}
       YAROPAY_BASE_URL: https://${APP_DOMAIN}
@@ -108,11 +109,19 @@ dashboard and database stay on Docker's private network.
 
 ```text
 {$APP_DOMAIN} {
-	reverse_proxy web:3000
+	# Payments, gateway webhooks and checkout callbacks go straight to the API.
+	@payments path /v1/*
+	handle @payments {
+		reverse_proxy api:4000
+	}
+	handle {
+		reverse_proxy web:3000
+	}
 }
 ```
 
-Caddy gets and renews a Let's Encrypt certificate automatically once the domain points at the server
+Sending `/v1/*` straight to the API means taking payments doesn't depend on the dashboard container:
+if it restarts or fails, checkouts, callbacks and webhooks keep working. Caddy gets and renews a Let's Encrypt certificate automatically once the domain points at the server
 and ports 80 and 443 are open.
 
 ## 4. Start it
@@ -152,6 +161,20 @@ docker compose up -d
 ```
 
 Read the release notes first. Migrations run when the new API starts; the backup lets you go back.
+
+## Rotating the encryption key
+
+Rotate `YAROPAY_ENCRYPTION_KEY` if it may have leaked, or as routine. Saved secrets are read with the
+old key and rewritten with the new one, while the app keeps running:
+
+1. Make a new key: `openssl rand -base64 32`.
+2. In `.env`, set `YAROPAY_ENCRYPTION_KEY` to the new key and add
+   `YAROPAY_ENCRYPTION_KEY_PREVIOUS` with the old one, then `docker compose up -d api`.
+3. Re-encrypt everything: `docker compose exec api node dist/cli/rotate-encryption-key.js`. It lists
+   what it rewrote. If it reports values it couldn't read, keep the old key and find out why first.
+4. Remove `YAROPAY_ENCRYPTION_KEY_PREVIOUS` from `.env` and run `docker compose up -d api` again.
+
+Backups taken before the rotation still need the old key: keep it with them.
 
 ## Building from source
 
