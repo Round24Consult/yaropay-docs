@@ -18,7 +18,8 @@ never billed.
 ## Choose how to start
 
 - **Self-host for free**: run YaroPay with Docker on any server. See [Self-hosting with Docker](self-hosting.md).
-- **Cloud**: YaroPay Cloud is in early access and opens to new companies soon.
+- **Cloud**: YaroPay Cloud is in early access. Email [hello@yaropay.com](mailto:hello@yaropay.com) to get a
+  workspace.
 
 ## Your first ten minutes
 

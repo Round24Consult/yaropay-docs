@@ -8,8 +8,8 @@ export const site = {
   appUrl: "https://app.yaropay.com",
   /** This repository: every page links to its file here ("Edit this page on GitHub"). */
   docsRepo: "https://github.com/Round24Consult/yaropay-docs",
-  /** Contact links appear once this is set to a mailbox that receives mail (yaropay.com has no MX records yet). */
-  contactEmail: "",
+  /** Shown as "Contact us" and "Talk to us" links. Leave empty to hide them. */
+  contactEmail: "hello@yaropay.com",
   company: "Round24consult Limited",
   docker: { namespace: "yaropay", api: "yaropay/api", web: "yaropay/web" },
 }
