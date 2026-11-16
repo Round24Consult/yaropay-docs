@@ -118,3 +118,51 @@ export async function renderDoc(page: DocPage): Promise<RenderedDoc> {
   const description = (/^#[^\n]*\n+([^\n#|`][^\n]*(?:\n[^\n#|`][^\n]*)*)/m.exec(markdown)?.[1] ?? "").replace(/\s+/g, " ").replace(/[*_`]|\[([^\]]+)\]\([^)]*\)/g, "$1").trim()
   return { page, html: String(file), description, toc }
 }
+
+/** A docs page's full public URL, e.g. https://yaropay.com/docs/self-hosting. */
+export const docUrl = (slug: string) => `${site.url}${BASE_PATH}${slug ? `/${slug}` : ""}`
+
+/** The page's Markdown source, as written (for llms-full.txt). */
+export async function docMarkdown(page: DocPage): Promise<string> {
+  return readFile(join(DOCS_DIR, page.file), "utf8")
+}
+
+/** The group a page belongs to (for breadcrumbs). */
+export function docGroup(page: DocPage): string {
+  return DOC_GROUPS.find((g) => g.pages.includes(page))?.title ?? "Docs"
+}
+
+/** SEO for one docs page: canonical URL, share card and structured data (TechArticle + breadcrumbs). */
+export function docSeo(page: DocPage, description: string) {
+  const url = docUrl(page.slug)
+  const image = { url: `${site.url}/og-image.png`, width: 1200, height: 630 }
+  return {
+    metadata: {
+      alternates: { canonical: url },
+      openGraph: { type: "article" as const, url, title: `${page.title} · ${site.name} Docs`, description, siteName: site.name, images: [image] },
+      twitter: { card: "summary_large_image" as const, title: `${page.title} · ${site.name} Docs`, description, images: [image.url] },
+    },
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        headline: page.title,
+        description,
+        url,
+        image: image.url,
+        inLanguage: "en",
+        isPartOf: { "@type": "WebSite", name: `${site.name} Docs`, url: docUrl("") },
+        publisher: { "@type": "Organization", name: site.company, url: site.url },
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: site.name, item: site.url },
+          { "@type": "ListItem", position: 2, name: "Docs", item: docUrl("") },
+          ...(page.slug ? [{ "@type": "ListItem", position: 3, name: page.title, item: url }] : []),
+        ],
+      },
+    ],
+  }
+}

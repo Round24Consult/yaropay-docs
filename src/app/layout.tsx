@@ -15,7 +15,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} Docs`, template: `%s · ${site.name} Docs` },
   description: site.description,
-  openGraph: { siteName: site.name, type: "website", images: ["/screenshots/dashboard-light.webp"] },
+  robots: { index: true, follow: true },
+  openGraph: { siteName: site.name, type: "website", images: [{ url: `${site.url}/og-image.png`, width: 1200, height: 630 }] },
+  twitter: { card: "summary_large_image", images: [`${site.url}/og-image.png`] },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
