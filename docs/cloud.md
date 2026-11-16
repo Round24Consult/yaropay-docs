@@ -48,12 +48,27 @@ At the start of each month you get an invoice for the month before, by email and
 nothing to pay (test mode only, during the trial) have no invoice. Invoices are due seven days after
 they're issued.
 
-Card payments are coming. Until then, reply to the invoice email and we'll send payment details.
+## Paying by card
+
+An owner or admin can add a card on **Settings → Billing**. Paystack checks it with a small charge
+(₦50, or $1 if you're billed in dollars) that is refunded straight away. After that:
+
+- Each invoice is charged to the card the day it's issued, and you get a receipt by email.
+- If a charge fails, we email the owners and try again every two days, up to four times.
+- You can pay any open invoice by card from the Billing page, which also saves the card if none is
+  saved. **Use another card** replaces it; **Remove** stops automatic charges.
+
+If the Billing page says card payments aren't available yet, reply to the invoice email and we'll send
+payment details instead.
 
 ## If something goes wrong with billing
 
 Payments to your products never depend on your bill. A late invoice doesn't stop your gateway webhooks,
 callbacks or deliveries to your products.
+
+If an invoice is still unpaid after its due date, paid features pause and products that have never taken
+a live payment can't start taking them. Products already taking live payments keep working, and test
+mode is unaffected. Paying the invoice puts everything back straight away.
 
 In rare cases (repeated unpaid invoices, or abuse) a company can be suspended. A suspended company's
 team can't sign in and new payments are refused, but payments already started still complete and reach
