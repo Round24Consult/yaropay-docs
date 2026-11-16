@@ -1,0 +1,68 @@
+name: Build and publish
+
+# Pull requests are built and checked. Merges to main also publish the site to the YaroPay server with a
+# deploy key that can only publish this site (the server unpacks the archive into a new release folder
+# and switches to it in one step). The key lives in the "production" environment, which only main can use.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+
+  publish:
+    name: Publish to yaropay.com/docs
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: production
+      url: https://yaropay.com/docs
+    concurrency:
+      group: publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Upload the release
+        env:
+          HOST: ${{ vars.DEPLOY_HOST }}
+          KEY: ${{ secrets.WWW_DEPLOY_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          (umask 077 && printf '%s\n' "$KEY" > ~/.ssh/www_deploy)
+          tar -C out -czf - . | ssh -T -i ~/.ssh/www_deploy -o IdentitiesOnly=yes -o BatchMode=yes "yaropay-www@$HOST"
+          rm -f ~/.ssh/www_deploy
+      - name: Check it answers
+        run: curl -fsS --retry 6 --retry-delay 5 --retry-all-errors -o /dev/null -w "https://yaropay.com/docs/self-hosting answered %{http_code}\n" "https://yaropay.com/docs/self-hosting"
