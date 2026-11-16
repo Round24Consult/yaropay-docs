@@ -77,5 +77,10 @@ your products. The owners get an email saying why.
 ## Who can see what
 
 The YaroPay team can see your company's name, plan, team members, product names and status, how many
-gateway accounts you have, and monthly usage totals, so we can bill you and help you. We can't see your
-gateway keys, your products' API keys or signing secrets, or your customers' payment details.
+gateway accounts you have, and monthly usage totals, so we can bill you and help you. We never see your
+gateway keys, your products' API keys or signing secrets.
+
+When you ask for help, a member of the team can open a **support view** of your dashboard: read-only,
+for at most an hour, with a reason. It shows what a viewer would see, including payments, and nothing
+can be changed or exported while it's open. Each one is recorded in your audit log with the reason, and
+your owners get an email when it starts. Team members who can open one must use two-step sign-in.
