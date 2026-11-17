@@ -41,7 +41,7 @@ someone send something to it, not make it believable.
 | Signing secret leaked | Someone could forge events to the product. Rotate it; confirm high-value orders through the API | The product team |
 | Gateway secret key leaked | Stored encrypted (AES-256-GCM), shown only masked, never sent to products. Product teams no longer need it at all | The install owner |
 | Product webhook URL pointed at internal services | Production refuses private and internal addresses, doesn't follow redirects, and live mode needs https | YaroPay |
-| Dashboard account taken over | Rate-limited sign-in, two-step sign-in with an authenticator app, httpOnly session cookies, new-device alerts, roles and product scopes that limit each person | Members: turn on two-step sign-in |
+| Dashboard account taken over | Rate-limited sign-in, two-step sign-in with an authenticator app, optional 30-day trusted browsers (password still required, removed when the password changes), httpOnly session cookies, new-device alerts, roles and product scopes that limit each person | Members: turn on two-step sign-in |
 | Server taken over | Firewall (SSH, HTTP, HTTPS only), fail2ban, automatic security updates, secrets encrypted with a key that never leaves the server | The install owner: SSH keys only, no password logins |
 
 ## Operator checklist

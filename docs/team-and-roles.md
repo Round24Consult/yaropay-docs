@@ -53,9 +53,16 @@ After that, signing in needs your password and a 6-digit code from the app.
   whoever did it knew your password.
 - Each code works once. Codes from just before or after the current 30 seconds are accepted, for phones
   whose clock is slightly off.
+- When you enter your code you can tick **Trust this browser for 30 days**. That browser then signs in
+  with your password alone until 30 days after you trusted it; using it doesn't extend that. Don't tick
+  it on a shared or public computer. See and remove trusted browsers, one by one or all at once, under
+  **Settings → Profile & security**. Changing or resetting your password, turning two-step sign-in off
+  or having it reset, and having your account disabled remove them all. Changes that need a recent code,
+  such as turning two-step sign-in off, still ask for one.
 
 Lost both your phone and your recovery codes? Whoever runs the server can turn two-step sign-in off for
-your account, which also signs you out everywhere and is recorded in the audit log:
+your account, which also signs you out everywhere, removes your trusted browsers and is recorded in the
+audit log:
 
 ```bash
 docker compose exec api node dist/cli/accounts.js reset-two-step you@company.com

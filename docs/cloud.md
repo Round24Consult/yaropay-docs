@@ -83,4 +83,4 @@ gateway keys, your products' API keys or signing secrets.
 When you ask for help, a member of the team can open a **support view** of your dashboard: read-only,
 for at most an hour, with a reason. It shows what a viewer would see, including payments, and nothing
 can be changed or exported while it's open. Each one is recorded in your audit log with the reason, and
-your owners get an email when it starts. Team members who can open one must use two-step sign-in.
+your owners get an email when it starts. Team members who can open one must use two-step sign-in. A sign-in from a trusted browser counts for opening the console; making changes still asks for a fresh code.
