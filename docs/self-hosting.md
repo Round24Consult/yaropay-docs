@@ -151,6 +151,13 @@ docker compose exec -T postgres pg_restore -U yaropay -d yaropay --clean --if-ex
 
 Copy backups off the server, and keep `YAROPAY_ENCRYPTION_KEY` with them (separately).
 
+## Changing settings without SSH
+
+Deploying with the repository's GitHub Actions workflow? Keep settings in GitHub as `ENV_<NAME>` secrets
+or variables (see [Configuration](configuration.md)). The deploy merges them into the server's `.env`,
+keeps the previous file, and restarts the app; run **Actions → Deploy → Run workflow** to apply a change
+without a code change.
+
 ## Upgrading
 
 Read the [release notes](https://github.com/Round24Consult/yaropay/releases) first, then set the new

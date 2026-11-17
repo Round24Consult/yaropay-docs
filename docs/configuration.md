@@ -2,6 +2,15 @@
 
 YaroPay is configured with environment variables. In Docker, set them on the `api` service.
 
+If you deploy with the repository's Deploy workflow, you can keep these as GitHub secrets or variables
+named `ENV_<NAME>` (for example `ENV_SMTP_URL`) instead of editing the server's `.env`. Each deploy, or
+**Actions → Deploy → Run workflow**, merges them into `.env`, keeps the previous file as
+`.env.bak-<time>`, logs only the names it changed, and restarts the app. `YAROPAY_ENCRYPTION_KEY` and the
+`POSTGRES_*` values can't be set this way: changing them needs the rotation procedure or a database
+change. Deleting a secret on GitHub doesn't remove the key from the server; set the value you want
+instead. The list of keys the workflow accepts is in the README, under "Changing server settings from
+GitHub".
+
 ## API
 
 | Variable | Default | What it does |
