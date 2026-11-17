@@ -50,6 +50,13 @@ export const DOC_GROUPS: { title: string; pages: DocPage[] }[] = [
       { slug: "security", file: "security.md", title: "Security model" },
     ],
   },
+  {
+    title: "Legal",
+    pages: [
+      { slug: "licences", file: "licences.md", title: "Licences" },
+      { slug: "contributor-agreement", file: "contributor-agreement.md", title: "Contributor License Agreement" },
+    ],
+  },
 ]
 
 export const DOC_PAGES = DOC_GROUPS.flatMap((g) => g.pages)

@@ -6,7 +6,7 @@ settlement reconciliation and scheduled reports. You run the Enterprise build on
 a licence key, which decides which of those features the install can use.
 
 To get YaroPay Enterprise, email [hello@yaropay.com](mailto:hello@yaropay.com). You receive the
-Enterprise build and a licence key.
+Enterprise build and a licence key. The terms are on the [Licences](licences.md) page.
 
 ## Which edition is running
 

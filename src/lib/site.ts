@@ -10,6 +10,6 @@ export const site = {
   docsRepo: "https://github.com/Round24Consult/yaropay-docs",
   /** Shown as "Contact us" and "Talk to us" links. Leave empty to hide them. */
   contactEmail: "hello@yaropay.com",
-  company: "Round24consult Limited",
+  company: "Round24 Consult Limited",
   docker: { namespace: "yaropay", api: "yaropay/api", web: "yaropay/web" },
 }

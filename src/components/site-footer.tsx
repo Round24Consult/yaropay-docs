@@ -28,6 +28,7 @@ const COLUMNS = [
       ...(site.contactEmail ? [{ href: `mailto:${site.contactEmail}`, label: "Contact us" }] : []),
       { href: `${site.appUrl}/login`, label: "Sign in" },
       { href: "/docs/security", label: "Security model" },
+      { href: "/docs/licences", label: "Licences" },
     ],
   },
 ]
