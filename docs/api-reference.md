@@ -25,7 +25,7 @@ The key decides both the product and the mode: `ypk_live_…` uses the product's
 | `currency` | string | ✓ | `NGN`, `USD`, `GHS`, `KES` or `ZAR` |
 | `email` | string | ✓ | The customer's email |
 | `name` | string | | The customer's name |
-| `gateway` | string | | `default` (the product's default account for the key's mode), `paystack` or `flutterwave` |
+| `gateway` | string | | `default` (the product's default account for the key's mode) or a gateway id: `paystack`, `flutterwave`, `stripe`, `paypal`, `monnify` or `korapay` (see [Gateways](gateways.md)) |
 | `reference` | string | | Must start with the product's prefix, e.g. `SHW_ORDER1042`. YaroPay makes one if you don't send it |
 | `channels` | string[] | | Limit payment methods: `card`, `bank_transfer`, `ussd`, `mobile_money`, `bank`, `qr` |
 | `metadata` | object | | Your own data (up to 4 KB). Sent back in every event |

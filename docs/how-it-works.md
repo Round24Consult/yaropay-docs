@@ -1,7 +1,7 @@
 # How YaroPay works
 
 YaroPay sits between your products and your payment gateway account. A company with several products
-(websites, SaaS apps, mobile apps) usually has one Paystack or Flutterwave account. Without YaroPay,
+(websites, SaaS apps, mobile apps) usually has one payment gateway account, such as Paystack, Stripe or PayPal. Without YaroPay,
 every product needs that account's secret key, and every payment event lands in one webhook that has
 to work out which product it belongs to. YaroPay holds the gateway keys once, starts payments for each
 product, and sends each product only its own payments.

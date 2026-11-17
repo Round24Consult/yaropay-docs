@@ -137,7 +137,7 @@ API applies database migrations itself on start.
 ## 5. Connect your gateway
 
 In the dashboard, open **Settings → General** and check the public URL is your https domain. Then add
-Paystack or Flutterwave under **Apps** and paste the webhook URL it shows into the gateway's dashboard.
+a gateway under **Apps** and paste the webhook URL it shows into the gateway's dashboard.
 The setup guide on the dashboard walks you through the rest.
 
 ## Backups

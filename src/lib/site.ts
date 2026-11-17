@@ -3,7 +3,7 @@ export const site = {
   name: "YaroPay",
   tagline: "One gateway account. Every product kept apart.",
   description:
-    "Open-source payment orchestration for companies that run several products on one payment gateway account (Paystack or Flutterwave today). Each product starts payments with its own key and gets only its own payments, events and reports.",
+    "Open-source payment orchestration for companies that run several products on one payment gateway account (Paystack, Flutterwave, Stripe, PayPal, Monnify, Korapay and more). Each product starts payments with its own key and gets only its own payments, events and reports.",
   url: "https://yaropay.com",
   appUrl: "https://app.yaropay.com",
   /** This repository: every page links to its file here ("Edit this page on GitHub"). */

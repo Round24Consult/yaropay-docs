@@ -37,7 +37,7 @@ Idempotency-Key: order-1042
 ```
 
 - `amount` is in minor units (kobo, cents, pesewas): `1500000` is ₦15,000.
-- `gateway` is `default` (the product's default account for the key's mode), `paystack` or `flutterwave`.
+- `gateway` is `default` (the product's default account for the key's mode) or a gateway id: `paystack`, `flutterwave`, `stripe`, `paypal`, `monnify` or `korapay` (see [Gateways](gateways.md)).
 - `reference` is optional. If you send one it must start with the product's prefix, for example
   `SHW_ORDER1042`; otherwise YaroPay makes one.
 - `Idempotency-Key`: send the same key again (for example after a timeout) and you get the same payment

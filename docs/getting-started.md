@@ -30,7 +30,7 @@ never billed.
 3. **Follow the setup guide** on the dashboard. Each step ticks itself off as soon as YaroPay sees it
    happen:
    1. Set your public URL (an https address gateways can reach).
-   2. Connect a payment gateway (Apps → Paystack or Flutterwave).
+   2. Connect a payment gateway (Apps → choose your gateway; see [Gateways](gateways.md)).
    3. Paste YaroPay's webhook URL into the gateway's dashboard. Done when the first signed event arrives.
    4. Add your first product.
    5. Take a test payment with the product's test API key.
