@@ -1,9 +1,10 @@
 # Enterprise licence
 
 YaroPay Enterprise is the self-hosted edition with paid features: several companies on one install,
-custom roles, single sign-on, required two-step sign-in, audit log export, more gateways, refunds,
+custom roles, single sign-on, required two-step sign-in, audit log export, refunds,
 settlement reconciliation and scheduled reports. You run the Enterprise build on your own server and add
-a licence key, which decides which of those features the install can use.
+a licence key, which decides which of those features the install can use. Payment gateways aren't
+paid features: every gateway works in every edition.
 
 To get YaroPay Enterprise, email [hello@yaropay.com](mailto:hello@yaropay.com). You receive the
 Enterprise build and a licence key. The terms are on the [Licences](licences.md) page.

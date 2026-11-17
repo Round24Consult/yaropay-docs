@@ -22,8 +22,8 @@ YaroPay is configured with environment variables. In Docker, set them on the `ap
 | `RATE_LIMIT` | on | Per-address limits on sign-in, password reset and invite endpoints, and the per-company product API limit below. |
 | `V1_RATE_LIMIT_PER_MINUTE` | `1200` | Product API requests one company can make each minute, across all its products and keys. Over it, requests get `429` with `Retry-After`. |
 | `SESSION_DAYS` | `30` | How long a sign-in lasts without activity. |
-| `PAYSTACK_API_URL`, `FLUTTERWAVE_API_URL` | the official APIs | Override for a proxy or sandbox. |
-| `GATEWAY_TIMEOUT_MS` | `15000` | How long YaroPay waits for Paystack or Flutterwave. |
+| `<GATEWAY>_API_URL` | the gateway's official API | Points one gateway at a proxy or a mock, for example `PAYSTACK_API_URL` or `FLUTTERWAVE_API_URL`. The name is the gateway's id in capitals. |
+| `GATEWAY_TIMEOUT_MS` | `15000` | How long YaroPay waits for a gateway's API. |
 | `LOG_LEVEL` | `log` | `error`, `warn`, `log`, `debug` or `verbose`. |
 | `PORT`, `HOST` | `4000`, `0.0.0.0` | Where the API listens. |
 | `YAROPAY_DISABLE_EE` | off | Enterprise builds only: run as Community, ignoring the paid features. Useful when debugging. |

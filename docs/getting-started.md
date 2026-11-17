@@ -8,9 +8,9 @@ and product teams never need the gateway's secret keys.
 
 | Edition | Where it runs | Price | For |
 |---|---|---|---|
-| **Community** | Your own server | Free, open source (AGPL-3.0) | One company, unlimited products, both gateways, signed webhooks, roles and notifications |
+| **Community** | Your own server | Free, open source (AGPL-3.0) | One company, unlimited products, every gateway, signed webhooks, roles and notifications |
 | **Cloud** | app.yaropay.com, run by us | Per live product per month; test mode is free | Teams that don't want to run servers |
-| **Enterprise** | Your own server | Per live product per month, with a licence key | Single sign-on, enforced 2FA, custom roles, audit export, more gateways, several companies per install |
+| **Enterprise** | Your own server | Per live product per month, with a licence key | Single sign-on, enforced 2FA, custom roles, audit export, refunds and reconciliation, several companies per install |
 
 A **live product** is one that took at least one live payment in the month. Products in test mode are
 never billed.
