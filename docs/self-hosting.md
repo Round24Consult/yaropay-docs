@@ -13,14 +13,13 @@ The Community edition runs on any server with Docker. It is three containers: th
 
 | Image | What it is |
 |---|---|
-| `yaropay/api` | The API: payments, gateway webhooks, deliveries to your products, the dashboard's data |
-| `yaropay/web` | The dashboard. It forwards `/api` and `/v1` to a service named `api` on port 4000 |
+| `ghcr.io/round24consult/yaropay/api` | The API: payments, gateway webhooks, deliveries to your products, the dashboard's data |
+| `ghcr.io/round24consult/yaropay/web` | The dashboard. It forwards `/api` and `/v1` to a service named `api` on port 4000 |
 
-Both are published on Docker Hub for `linux/amd64` and `linux/arm64` with each release. Tags: `latest`,
-and each release version (for example `0.1.0`). Pin a version in production and upgrade on purpose.
-
-> The first release is coming soon. Until the images are on Docker Hub, build them from source (see
-> [Building from source](#building-from-source)); everything else on this page is the same.
+Both are public on GitHub's container registry, built for `linux/amd64` and `linux/arm64` with each
+[release](https://github.com/Round24Consult/yaropay/releases). Tags: each release version (for example
+`0.2.0`), the minor version (`0.2`, which moves to the newest `0.2.x`) and `latest`. Pin a version in
+production and upgrade on purpose. These are the Community images: they contain no paid code.
 
 ## 1. Create the folder and secrets
 
@@ -59,14 +58,14 @@ services:
     depends_on: [web]
 
   web:
-    image: yaropay/web:latest
+    image: ghcr.io/round24consult/yaropay/web:0.2.0
     restart: unless-stopped
     depends_on:
       api:
         condition: service_healthy
 
   api:
-    image: yaropay/api:latest
+    image: ghcr.io/round24consult/yaropay/api:0.2.0
     restart: unless-stopped
     environment:
       DATABASE_URL: postgres://yaropay:${POSTGRES_PASSWORD}@postgres:5432/yaropay
@@ -154,13 +153,16 @@ Copy backups off the server, and keep `YAROPAY_ENCRYPTION_KEY` with them (separa
 
 ## Upgrading
 
+Read the [release notes](https://github.com/Round24Consult/yaropay/releases) first, then set the new
+version in both `image:` lines of `compose.yml` and run:
+
 ```bash
 docker compose exec -T postgres pg_dump -U yaropay -Fc yaropay > before-upgrade.dump
 docker compose pull
 docker compose up -d
 ```
 
-Read the release notes first. Migrations run when the new API starts; the backup lets you go back.
+Migrations run when the new API starts; the backup lets you go back.
 
 ## Rotating the encryption key
 
