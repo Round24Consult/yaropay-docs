@@ -2,7 +2,7 @@
 
 YaroPay Enterprise is the self-hosted edition with paid features: several companies on one install,
 custom roles, single sign-on, required two-step sign-in, audit log export, refunds,
-settlement reconciliation and scheduled reports. You run the Enterprise build on your own server and add
+settlement reconciliation, scheduled reports and [AI assistants (MCP)](ai-assistants.md). You run the Enterprise build on your own server and add
 a licence key, which decides which of those features the install can use. Payment gateways aren't
 paid features: every gateway works in every edition.
 
@@ -23,6 +23,8 @@ edition when it starts, for example `API listening on http://localhost:4000 (ent
 The key is checked on your server, offline: YaroPay never sends it anywhere. A key that was changed in
 any way, or wasn't issued by YaroPay, is refused. Adding a key is recorded in the audit log, and a new
 key replaces the old one.
+
+A key issued with every paid feature also unlocks features added in later releases, such as AI assistants.
 
 ## When a licence expires
 

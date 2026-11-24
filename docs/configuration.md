@@ -28,6 +28,9 @@ GitHub".
 | `WEBHOOK_ALLOW_PRIVATE` | on in development, off in production | Allows product webhook URLs on private networks. Leave it off on internet-facing installs. |
 | `WEBHOOK_TIMEOUT_MS` | `10000` | How long YaroPay waits for a product's webhook endpoint. |
 | `WORKERS` | on | Runs the delivery and email workers. Several API instances can share them safely. |
+| `MCP_RATE_LIMIT_PER_MINUTE` | `120` | Enterprise and Cloud: requests a minute one [AI app](ai-assistants.md) connection may make. |
+| `MCP_WORKSPACE_RATE_LIMIT_PER_MINUTE` | `600` | Enterprise and Cloud: requests a minute all of a company's AI apps together may make. |
+| `MCP_ALLOWED_ORIGINS` | none | Comma-separated browser origins allowed to call `/mcp`. Desktop and server apps send no origin and don't need this. |
 | `RATE_LIMIT` | on | Per-address limits on sign-in, password reset and invite endpoints, and the per-company product API limit below. |
 | `V1_RATE_LIMIT_PER_MINUTE` | `1200` | Product API requests one company can make each minute, across all its products and keys. Over it, requests get `429` with `Retry-After`. |
 | `SESSION_DAYS` | `30` | How long a sign-in lasts without activity. |

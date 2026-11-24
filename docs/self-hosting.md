@@ -108,8 +108,8 @@ dashboard and database stay on Docker's private network.
 
 ```text
 {$APP_DOMAIN} {
-	# Payments, gateway webhooks and checkout callbacks go straight to the API.
-	@payments path /v1/*
+	# Payments, gateway webhooks, checkout callbacks and AI apps go straight to the API.
+	@payments path /v1/* /mcp /mcp/* /oauth/* /.well-known/oauth-protected-resource /.well-known/oauth-protected-resource/* /.well-known/oauth-authorization-server /.well-known/oauth-authorization-server/*
 	handle @payments {
 		reverse_proxy api:4000
 	}
@@ -120,7 +120,9 @@ dashboard and database stay on Docker's private network.
 ```
 
 Sending `/v1/*` straight to the API means taking payments doesn't depend on the dashboard container:
-if it restarts or fails, checkouts, callbacks and webhooks keep working. Caddy gets and renews a Let's Encrypt certificate automatically once the domain points at the server
+if it restarts or fails, checkouts, callbacks and webhooks keep working. The `/mcp`, `/oauth` and
+`/.well-known/oauth-*` paths are for [AI apps](ai-assistants.md) (Enterprise); with another reverse
+proxy, send the same paths to the API. Caddy gets and renews a Let's Encrypt certificate automatically once the domain points at the server
 and ports 80 and 443 are open.
 
 ## 4. Start it

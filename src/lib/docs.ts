@@ -38,6 +38,7 @@ export const DOC_GROUPS: { title: string; pages: DocPage[] }[] = [
       { slug: "integrating-a-product", file: "integrating-a-product.md", title: "Integrating a product" },
       { slug: "api-reference", file: "api-reference.md", title: "API reference" },
       { slug: "gateways", file: "gateways.md", title: "Gateways" },
+      { slug: "ai-assistants", file: "ai-assistants.md", title: "AI assistants (MCP)" },
     ],
   },
   {
