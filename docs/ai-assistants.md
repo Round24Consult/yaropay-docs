@@ -28,9 +28,26 @@ YaroPay.
 
 ## Connecting an app
 
-1. Open **Settings → AI apps** and choose **New token**. Give it a name ("Claude Code on my laptop") and
-   how long it lasts (at most 90 days). Copy the token: YaroPay shows it once.
-2. Add YaroPay to your AI app with the MCP server URL shown on that page, `https://<your domain>/mcp`:
+The MCP server URL is `https://<your domain>/mcp` (on Cloud, `https://app.yaropay.com/mcp`). Most apps
+sign in by themselves: add the URL, and the app opens YaroPay in your browser, where you choose the
+company, decide whether it may see live data, and approve.
+
+| App | How |
+|---|---|
+| Claude (web and desktop) | Settings → Connectors → **Add custom connector**, paste the URL |
+| ChatGPT | Settings → Apps & Connectors → **Create** (developer mode), paste the URL |
+| Claude Code | `claude mcp add --transport http yaropay https://app.yaropay.com/mcp`, then run `/mcp` to sign in |
+| Cursor, VS Code | Add an MCP server with just the URL; they open YaroPay to sign in |
+
+The approval page shows which app is asking and where approving sends you back: a website, or "an app on
+this computer" for desktop and command-line apps. Apps that registered themselves with YaroPay are
+marked **Not verified**: approve only an app you just started connecting yourself. A connection made by
+signing in lasts 90 days, then the app asks you again.
+
+### Apps without sign-in: tokens
+
+For an app that only takes a URL and a header, create a token instead: **Settings → AI apps → New
+token**, give it a name and how long it lasts (at most 90 days), and copy it (YaroPay shows it once).
 
 **Claude Code**
 
@@ -53,9 +70,8 @@ claude mcp add --transport http yaropay https://app.yaropay.com/mcp --header "Au
 }
 ```
 
-Any other app that takes an MCP server URL and a header works the same way. Self-hosted installs use
-their own domain. One-click sign-in for apps such as Claude on the web and ChatGPT, without copying a
-token, is coming soon.
+Self-hosted installs use their own domain. Signing in from Claude on the web or ChatGPT needs the install
+to be reachable from the internet over https; tokens also work on a private network.
 
 ## Tools
 
@@ -86,8 +102,9 @@ and can revoke any of them. They also decide:
 | Live data | Off |
 | Customer details | Masked |
 
-A token stops working when it expires, when it's revoked, when the member is removed, and when the
-member changes or resets their password or turns two-step sign-in off. If the plan or licence no longer
+A connection stops working when it expires, when it's revoked (by the member, an admin, or the app
+itself), when the member is removed, and when the member changes or resets their password or turns
+two-step sign-in off. If the plan or licence no longer
 includes AI apps, or the company turns them off, the app can still connect but only gets an explanation.
 
 ## Activity
