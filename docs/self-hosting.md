@@ -18,7 +18,7 @@ The Community edition runs on any server with Docker. It is three containers: th
 
 Both are public on GitHub's container registry, built for `linux/amd64` and `linux/arm64` with each
 [release](https://github.com/Round24Consult/yaropay/releases). Tags: each release version (for example
-`0.2.0`), the minor version (`0.2`, which moves to the newest `0.2.x`) and `latest`. Pin a version in
+`0.3.0`), the minor version (`0.3`, which moves to the newest `0.3.x`) and `latest`. Pin a version in
 production and upgrade on purpose. These are the Community images: they contain no paid code.
 
 ## 1. Create the folder and secrets
@@ -58,14 +58,14 @@ services:
     depends_on: [web]
 
   web:
-    image: ghcr.io/round24consult/yaropay/web:0.2.0
+    image: ghcr.io/round24consult/yaropay/web:0.3.0
     restart: unless-stopped
     depends_on:
       api:
         condition: service_healthy
 
   api:
-    image: ghcr.io/round24consult/yaropay/api:0.2.0
+    image: ghcr.io/round24consult/yaropay/api:0.3.0
     restart: unless-stopped
     environment:
       DATABASE_URL: postgres://yaropay:${POSTGRES_PASSWORD}@postgres:5432/yaropay
