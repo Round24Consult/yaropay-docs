@@ -22,9 +22,8 @@ An AI app connects as **one member of one company** and sees what that member ma
   initials, unless an admin turns on **Customer details**. Searching by a full email still works.
 - **Never keys or secrets.** Gateway keys, product API keys and signing secrets never leave YaroPay.
 
-AI apps can read for now. Asking YaroPay to do things (re-check a payment with the gateway, retry a
-webhook, create a payment link) is coming next, and each of those will wait for the member's approval in
-YaroPay.
+An AI app can also ask YaroPay to do three things, and each one waits for the member's approval in
+YaroPay (see [Actions](#actions)).
 
 ## Connecting an app
 
@@ -90,6 +89,33 @@ to be reachable from the internet over https; tokens also work on a private netw
 Amounts are in minor units (kobo, cents) with a formatted amount beside them. Tools an app's member
 can't use don't appear in its list at all.
 
+## Actions
+
+| Action | What happens after approval | Who can |
+|---|---|---|
+| `recheck_payment` | YaroPay asks the gateway for the payment's status now and updates it; if it changes, the product gets the usual webhook | Owner, admin, developer, finance |
+| `retry_webhook_delivery` | YaroPay sends the signed event to the product's webhook URL again, now | Owner, admin, developer |
+| `create_payment_link` | YaroPay starts a payment for a product and gives back its checkout link to send to a customer; nothing is charged until they pay | Owner, admin, developer, finance |
+
+Nothing happens when the app asks. YaroPay checks the request (the payment exists and you can see it,
+the product is active, the amount and email are valid), then gives the app a link to an approval page.
+Open it in YaroPay: it shows the app, the company, **TEST** or **LIVE**, and exactly what will happen,
+with the amount formatted. Approve or Deny. The app then calls again with the approval id and gets the
+result; a payment link also shows on the approval page, ready to copy.
+
+- Only the member whose app asked can open the approval page. Anyone else sees "not found".
+- What runs is what you saw: the app can't change the request after asking, and an approval can't be used
+  for a different request.
+- Approvals expire after 15 minutes. At most 10 can wait per connection, and 30 can be asked for per
+  member per hour.
+- A live action needs your password and authenticator code again if you haven't entered them in the last
+  15 minutes.
+- Payments created this way say so on their timeline: "Created by Ada via Claude".
+- The app only gets actions if you allowed them when connecting (or ticked **Actions with approval** on
+  the token), your role allows the action, and the company allows actions.
+
+Refunds and payouts aren't AI app actions.
+
 ## Company controls
 
 Owners and admins (anyone who can change settings) see every member's tokens on **Settings → AI apps**
@@ -100,6 +126,7 @@ and can revoke any of them. They also decide:
 | AI apps on or off for the company | On |
 | Which roles may connect | All |
 | Live data | Off |
+| Actions (each still needs approval) | On |
 | Customer details | Masked |
 
 A connection stops working when it expires, when it's revoked (by the member, an admin, or the app

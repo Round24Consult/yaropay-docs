@@ -8,6 +8,7 @@
 | Export payments (CSV) | ✓ | ✓ | ✓ | ✓ | |
 | See the audit log | ✓ | ✓ | ✓ | ✓ | |
 | Edit products, rotate product keys, send test events, replay deliveries | ✓ | ✓ | ✓ | | |
+| Approve an AI app re-checking a payment or creating a payment link ([AI assistants](ai-assistants.md)) | ✓ | ✓ | ✓ | ✓ | |
 | Delete products | ✓ | ✓ | | | |
 | Install, rotate and remove gateway accounts | ✓ | ✓ | | | |
 | Change settings and manage the team | ✓ | ✓ | | | |
